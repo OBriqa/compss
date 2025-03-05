@@ -76,7 +76,9 @@ class Actions(ABC):
 
         if self.arguments.config:
             shutil.copy2(self.arguments.config, env_path)
-            
+        
+        self.env_change(self.arguments.name)
+
         print('Environment created ID:', self.arguments.name)
 
     @abstractmethod
