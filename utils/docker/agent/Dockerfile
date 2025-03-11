@@ -2,7 +2,9 @@
 # Image for building COMPSs
 # =============================================================================
 FROM compss/base18:latest as builder
-MAINTAINER COMPSs Support <support-compss@bsc.es>
+LABEL maintainer="COMPSs Support <support-compss@bsc.es>" \
+      vendor="Barcelona Supercomputing Center (BSC)" \
+      url="http://compss.bsc.es"
 
 ENV GRADLE_HOME=/opt/gradle JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/ PATH=$PATH:/opt/COMPSs/Runtime/scripts/user:/opt/COMPSs/Bindings/c/bin:/opt/COMPSs/Runtime/scripts/utils:/opt/gradle/bin CLASSPATH=$CLASSPATH:/opt/COMPSs/Runtime/compss-engine.jar LD_LIBRARY_PATH=/opt/COMPSs/Bindings/bindings-common/lib:$JAVA_HOME/jre/lib/amd64/server COMPSS_HOME=/opt/COMPSs/
 
