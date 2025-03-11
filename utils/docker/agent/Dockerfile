@@ -23,7 +23,7 @@ RUN cd /framework && \
 # =============================================================================
 # Image for running COMPSs agent
 # =============================================================================
-FROM ubuntu:18.04 as base
+FROM ubuntu:22.04 as base
 MAINTAINER COMPSs Support <support-compss@bsc.es>
 
 RUN apt-get update && \
