@@ -24,7 +24,9 @@ RUN cd /framework && \
 # Image for running COMPSs agent
 # =============================================================================
 FROM ubuntu:22.04 as base
-MAINTAINER COMPSs Support <support-compss@bsc.es>
+LABEL maintainer="COMPSs Support <support-compss@bsc.es>" \
+      vendor="Barcelona Supercomputing Center (BSC)" \
+      url="http://compss.bsc.es"
 
 RUN apt-get update && \
 # Install Packages
