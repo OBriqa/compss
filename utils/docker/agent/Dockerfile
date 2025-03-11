@@ -10,7 +10,6 @@ COPY . /framework
 
 RUN cd /framework && \
     ./submodules_get.sh && \
-    ./submodules_patch.sh && \
     sudo -E /framework/builders/buildlocal -A -M -T -K --skip-tests /opt/COMPSs 
 
 # =============================================================================
