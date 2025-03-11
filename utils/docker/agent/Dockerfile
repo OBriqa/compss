@@ -10,7 +10,7 @@ COPY . /framework
 
 RUN cd /framework && \
     ./submodules_get.sh && \
-    sudo -E /framework/builders/buildlocal -A -M -T -K --skip-tests /opt/COMPSs 
+    sudo -E /framework/builders/buildlocal -M -T -K --skip-tests /opt/COMPSs 
 
 # =============================================================================
 # Image for running COMPSs agent
