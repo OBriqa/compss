@@ -22,7 +22,7 @@ RUN apt-get update && \
 
 RUN cd /framework && \
     ./submodules_get.sh && \
-    /framework/builders/buildlocal -M -T -K --skip-tests /opt/COMPSs 
+    /framework/builders/buildlocal -N --skip-tests /opt/COMPSs 
 
 # =============================================================================
 # Image for running COMPSs agent
