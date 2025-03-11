@@ -7,7 +7,7 @@ LABEL maintainer="COMPSs Support <support-compss@bsc.es>" \
       url="http://compss.bsc.es"
 
 ENV GRADLE_HOME /opt/gradle 
-ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/ 
+ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64/ 
 
 ENV PATH=$PATH:/opt/COMPSs/Runtime/scripts/user:/opt/COMPSs/Bindings/c/bin:/opt/COMPSs/Runtime/scripts/utils:/opt/gradle/bin
 ENV CLASSPATH=$CLASSPATH:/opt/COMPSs/Runtime/compss-engine.jar
@@ -30,7 +30,7 @@ LABEL maintainer="COMPSs Support <support-compss@bsc.es>" \
 
 RUN apt-get update && \
 # Install Packages
-    apt-get install -y --no-install-recommends openjdk-8-jdk \
+    apt-get install -y --no-install-recommends openjdk-11-jdk \
 # Dependencies
     curl build-essential openmpi-bin openmpi-doc libopenmpi-dev\
 # Python-binding dependencies
@@ -46,7 +46,7 @@ RUN apt-get update && \
     pip2 install --no-cache-dir wheel numpy==1.15.4 dill guppy==0.1.11 decorator mpi4py==1.3.1 && \
     pip3 install --no-cache-dir wheel numpy==1.15.4 dill guppy3==3.1.0 decorator mpi4py==3.0.1 && \
 # Add environment variables
-    echo "JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/" >> /etc/environment && \
+    echo "JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/" >> /etc/environment && \
     echo "MPI_HOME=/usr/lib/openmpi" >> /etc/environment && \
     echo "LD_LIBRARY_PATH=/usr/lib/openmpi/lib" >> /etc/environment && \
     mkdir /run/sshd && \
@@ -54,7 +54,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # SET UP ENVIRONMENT
-ENV AGENT_HOST=localhost REST_AGENT_PORT=0 COMM_AGENT_PORT=0 DEBUG=debug APP_PATH=/app JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
+ENV AGENT_HOST=localhost REST_AGENT_PORT=0 COMM_AGENT_PORT=0 DEBUG=debug APP_PATH=/app JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/
 WORKDIR /tmp
 
 # COPY COMPSs INSTALLATION
