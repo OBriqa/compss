@@ -11,18 +11,18 @@ echo "Copying framework to ${SANDBOX}"
 cp -r -L "${RUNTIME_DIR}" ${SANDBOX}
 
 echo "Removing Tests from maven"
-sed -i -e 's#<module>tests/sources</module># #g'  ${SANDBOX}/framework/pom.xml
-sed -i -e 's#<module>performance_analysis/auto-cbm</module># #g'  ${SANDBOX}/framework/pom.xml
+sed -i -e 's#<module>tests/sources</module># #g'  ${SANDBOX}/compss/pom.xml
+sed -i -e 's#<module>performance_analysis/auto-cbm</module># #g'  ${SANDBOX}/compss/pom.xml
 
 # CLEANING MAVEN PROJECT
-cd "${SANDBOX}"/framework
+cd "${SANDBOX}"/compss
 echo "Building image"
 mvn clean
 
 # BUILDING IMAGE
 echo "Building image"
 cd "${SANDBOX}"
-docker build -t compss/agent:${COMPSs_VERSION} ./framework -f ./framework/utils/docker/agent/Dockerfile
+docker build -t compss/agent:${COMPSs_VERSION} ./compss -f ./compss/utils/docker/agent/Dockerfile
 
 rm -rf "${SANDBOX}"
 cd "${INIT_DIR}"
