@@ -1,13 +1,14 @@
 # =============================================================================
 # Image for building COMPSs
 # =============================================================================
-FROM compss/base18:latest AS builder
+FROM ubuntu:22.04 AS builder
 LABEL maintainer="COMPSs Support <support-compss@bsc.es>" \
       vendor="Barcelona Supercomputing Center (BSC)" \
       url="http://compss.bsc.es"
 
 ENV GRADLE_HOME /opt/gradle 
 ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64/ 
+ENV EXTRAE_MPI_HEADERS /usr/include/x86_64-linux-gnu/mpi
 
 ENV PATH=$PATH:/opt/COMPSs/Runtime/scripts/user:/opt/COMPSs/Bindings/c/bin:/opt/COMPSs/Runtime/scripts/utils:/opt/gradle/bin
 ENV CLASSPATH=$CLASSPATH:/opt/COMPSs/Runtime/compss-engine.jar
@@ -16,9 +17,12 @@ ENV COMPSS_HOME=/opt/COMPSs/
 
 COPY . /framework
 
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends wget maven git python3 pip
+
 RUN cd /framework && \
     ./submodules_get.sh && \
-    sudo -E /framework/builders/buildlocal -M -T -K --skip-tests /opt/COMPSs 
+    /framework/builders/buildlocal -M -T -K --skip-tests /opt/COMPSs 
 
 # =============================================================================
 # Image for running COMPSs agent
@@ -32,23 +36,14 @@ RUN apt-get update && \
 # Install Packages
     apt-get install -y --no-install-recommends openjdk-11-jdk \
 # Dependencies
-    curl build-essential openmpi-bin openmpi-doc libopenmpi-dev\
-# Python-binding dependencies
-    python python-setuptools python-dev libpython2.7 \
+    curl build-essential openmpi-bin openmpi-doc libopenmpi-dev \
 # python-pip
-    python3 python3-setuptools python3-dev python3-pip &&\
-# Python modules
-    curl https://bootstrap.pypa.io/pip/2.7/get-pip.py -o get-pip.py && \
-    python2 get-pip.py && \
-    rm get-pip.py && \
-    python2 -m pip install --upgrade pip && \
-    python3 -m pip install --upgrade pip && \
-    pip2 install --no-cache-dir wheel numpy==1.15.4 dill guppy==0.1.11 decorator mpi4py==1.3.1 && \
-    pip3 install --no-cache-dir wheel numpy==1.15.4 dill guppy3==3.1.0 decorator mpi4py==3.0.1 && \
+    python3 python3-setuptools python3-dev python3-pip && \
 # Add environment variables
     echo "JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/" >> /etc/environment && \
     echo "MPI_HOME=/usr/lib/openmpi" >> /etc/environment && \
     echo "LD_LIBRARY_PATH=/usr/lib/openmpi/lib" >> /etc/environment && \
+    echo "EXTRAE_MPI_HEADERS=/usr/include/x86_64-linux-gnu/mpi" >> /etc/environment && \
     mkdir /run/sshd && \
     apt-get autoclean && \
     rm -rf /var/lib/apt/lists/*
