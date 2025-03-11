@@ -1,7 +1,7 @@
 # =============================================================================
 # Image for building COMPSs
 # =============================================================================
-FROM compss/base18:latest as builder
+FROM compss/base18:latest AS builder
 LABEL maintainer="COMPSs Support <support-compss@bsc.es>" \
       vendor="Barcelona Supercomputing Center (BSC)" \
       url="http://compss.bsc.es"
@@ -23,7 +23,7 @@ RUN cd /framework && \
 # =============================================================================
 # Image for running COMPSs agent
 # =============================================================================
-FROM ubuntu:22.04 as base
+FROM ubuntu:22.04 AS base
 LABEL maintainer="COMPSs Support <support-compss@bsc.es>" \
       vendor="Barcelona Supercomputing Center (BSC)" \
       url="http://compss.bsc.es"
