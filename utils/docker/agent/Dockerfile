@@ -61,8 +61,8 @@ WORKDIR /tmp
 # COPY COMPSs INSTALLATION
 COPY --from=builder /opt/COMPSs /opt/COMPSs
 
-# CMD /opt/COMPSs/Runtime/scripts/user/compss_agent_start --hostname=${AGENT_HOST} --comm_port=${COMM_AGENT_PORT} --rest_port=${REST_AGENT_PORT} -d ${DEBUG} --classpath=${APP_PATH} --pythonpath=${APP_PATH} --log_dir=/tmp
+CMD /opt/COMPSs/Runtime/scripts/user/compss_agent_start --hostname=${AGENT_HOST} --comm_port=${COMM_AGENT_PORT} --rest_port=${REST_AGENT_PORT} -d ${DEBUG} --classpath=${APP_PATH} --pythonpath=${APP_PATH} --log_dir=/tmp
 
-ENTRYPOINT ["/opt/COMPSs/Runtime/scripts/user/compss_agent_start"]
+# ENTRYPOINT ["/opt/COMPSs/Runtime/scripts/user/compss_agent_start"]
 
-CMD ["--hostname=${AGENT_HOST}", "--comm_port=${COMM_AGENT_PORT}", "--rest_port=${REST_AGENT_PORT}", "-d", "${DEBUG}", "--classpath=${APP_PATH}", "--pythonpath=${APP_PATH}", "--log_dir=${LOG_DIR}"]
+# CMD ["--hostname=${AGENT_HOST}", "--comm_port=${COMM_AGENT_PORT}", "--rest_port=${REST_AGENT_PORT}", "-d", "${DEBUG}", "--classpath=${APP_PATH}", "--pythonpath=${APP_PATH}", "--log_dir=${LOG_DIR}"]
